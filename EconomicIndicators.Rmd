@@ -8,12 +8,14 @@ output:
 
 
 ```{r setup, include=FALSE}
-library(flexdashboard)
+library(flexdashboard) #devtools::install_github('rstudio/flexdashboard')
 library(xlsx)
 library(ggplot2)
 
-
+#Read US GDP Data Set from FED Excel File
 dtGDP <- read.xlsx('fredgraph.xls',sheetName = 'GDP')
+
+#Read US Unemployment Rate and ISM PCI Index Data Set from FED Excel File 
 dtOtherIndicators <- read.xlsx('fredgraph.xls',sheetName = 'Sheet2')
 
 
@@ -23,10 +25,11 @@ dtOtherIndicators <- read.xlsx('fredgraph.xls',sheetName = 'Sheet2')
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### GDP Quarterly Percent Changed - Seasonaly Adjusted
+### Real GDP Quarterly Percent Changed - Seasonaly Adjusted
 
 ```{r fig.width=10}
 
+#Create Line Graph To Display Time Series Real GDP
 ggplot(dtGDP,aes(x=Date,y=RGDP)) +
   geom_line(color="blue") +
   ggtitle("") +
@@ -41,6 +44,7 @@ ggplot(dtGDP,aes(x=Date,y=RGDP)) +
 
 ```{r fig.width=10}
 
+#Create Line Graph To Display Time Series Unemployment Rate 
 ggplot(dtOtherIndicators,aes(x=Date,y=UNRATE)) +
   geom_line(color="blue") +
   ggtitle("") +
@@ -59,6 +63,7 @@ Column {data-width=350}
 
 ```{r fig.width=5, fig.height=5}
 
+# Create Line Graph To Display Time Series ISM PCI Index 
 ggplot(dtOtherIndicators,aes(x=Date,y=ISM.PMI)) +
   geom_line(color="blue") +
   ggtitle("") +
